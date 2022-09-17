@@ -7,18 +7,25 @@ namespace TracerApplication.serializer.impl;
 
 public class ToXmlSerializer : ISerializer
 {
+    private const string XML_SAVE_PATH = "D:/123.xml";
+    
     public void Serialize(TraceResult traceResult)
     {
-        StringWriter sw = new StringWriter();
-        XmlTextWriter tw = new XmlTextWriter(sw);
-        tw.Formatting = Formatting.Indented;
+        using (StringWriter stringWriter = new StringWriter())
+        {
+            using (XmlTextWriter xmlTextWriter = new XmlTextWriter(stringWriter))
+            {
+                xmlTextWriter.Formatting = Formatting.Indented;
         
-        XmlSerializer xmlSerializer = new XmlSerializer(typeof(TraceResult));
-        xmlSerializer.Serialize(tw, traceResult);
-        
-        tw.Close();
-        sw.Close();
-        
-        Console.WriteLine(sw.ToString());
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(TraceResult));
+                xmlSerializer.Serialize(xmlTextWriter, traceResult);
+                Console.WriteLine(stringWriter.ToString());
+                
+                using (StreamWriter writer = new StreamWriter(XML_SAVE_PATH, false))
+                {
+                    writer.WriteLine(stringWriter);
+                }
+            }
+        }
     }
 }
