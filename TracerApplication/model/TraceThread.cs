@@ -1,25 +1,27 @@
-﻿using System.Text.Json.Serialization;
-
-namespace TracerApplication.service.impl;
+﻿namespace TracerApplication.model;
 
 public class TraceThread
 {
-    [JsonPropertyName("id")]
     public int Id
     {
-        get; private set;
+        get; 
+        set;
     }
-
-    [JsonPropertyName("time")]
+    
     public double FinalExecutionTime
     {
-        get; private set;
+        get; 
+        set;
     }
-
-    [JsonPropertyName("methods")]
+    
     public List<TraceMethod> TraceMethods
     {
-        get; private set;
+        get;
+        set;
+    }
+
+    public TraceThread()
+    {
     }
 
     private Stack<TraceMethod> StillWorkingMethods; 
@@ -72,6 +74,11 @@ public class TraceThread
         {
             TraceMethods.Add(lastWorkingMethod);
             FinalExecutionTime += lastWorkingMethod.ExecutionTime;
+
+            foreach (var traceMethod in lastWorkingMethod.TraceMethods)
+            {
+                FinalExecutionTime += traceMethod.ExecutionTime;
+            }
         }
     }
 }

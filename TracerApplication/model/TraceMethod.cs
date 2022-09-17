@@ -1,36 +1,38 @@
 ﻿using System.Diagnostics;
-using System.Text.Json.Serialization;
 
-namespace TracerApplication.service.impl;
+namespace TracerApplication.model;
 
 public class TraceMethod
 {
-    [JsonPropertyName("name")]
     public string MethodName
     {
-        get; private set;
+        get; 
+        set;
     }
-
-    [JsonPropertyName("class")]
+    
     public string ClassName
     {
-        get; private set;
+        get;
+        set;
     }
-
-    [JsonPropertyName("time")]
+    
     public double ExecutionTime
     {
-        get; private set;
+        get;
+        set;
     }
-
-    [JsonPropertyName("methods")]
+    
     public List<TraceMethod> TraceMethods
     {
         get;
-        private set;
+        set;
     }
 
     private readonly Stopwatch _stopwatch;
+
+    public TraceMethod()
+    {
+    }
 
     public TraceMethod(string className, string methodName)
     {
@@ -40,7 +42,7 @@ public class TraceMethod
         _stopwatch = new Stopwatch();
     }
 
-    public TraceMethod(string methodName, string className, double executionTime)
+    public TraceMethod(string className, string methodName, double executionTime)
     {
         MethodName = methodName;
         ClassName = className;
@@ -52,10 +54,10 @@ public class TraceMethod
     internal TraceMethod GetTraceResult()
     {
         var traceMethod = new TraceMethod(ClassName, MethodName, ExecutionTime);
-
+        
         foreach (var method in TraceMethods)
         {
-            method.TraceMethods.Add(method.GetTraceResult());
+            traceMethod.TraceMethods.Add(method.GetTraceResult());
         }
 
         return traceMethod;
@@ -71,4 +73,12 @@ public class TraceMethod
         _stopwatch.Stop();
         ExecutionTime = _stopwatch.Elapsed.TotalMilliseconds;
     }
+
+    /*public override string ToString()
+    {
+        Console.WriteLine(String.Format("{0} {1} {2}", MethodName, ClassName, ExecutionTime));
+        Console.WriteLine(TraceMethods.Count == 0);
+        Console.WriteLine(String.Join(", ", TraceMethods));
+        return base.ToString();
+    }*/
 }

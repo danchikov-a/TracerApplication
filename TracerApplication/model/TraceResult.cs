@@ -1,14 +1,16 @@
-﻿using System.Text.Json.Serialization;
-using TracerApplication.service.impl;
+﻿using TracerApplication.service.impl;
 
 namespace TracerApplication.model;
 
 public class TraceResult
 {
-    [JsonPropertyName("threads")]
     public List<TraceThread> Threads
     {
         get;
+    }
+
+    public TraceResult()
+    {
     }
 
     public TraceResult(Dictionary<int, TraceThread> threads)

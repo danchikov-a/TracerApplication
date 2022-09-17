@@ -17,7 +17,10 @@ public class Tracer : ITracer
 
     public TraceResult GetTraceResult()
     {
-        return new TraceResult(_traceThreads);
+        lock (LockObject)
+        {
+            return new TraceResult(_traceThreads);
+        }
     }
 
     public void StartTrace()
@@ -25,7 +28,6 @@ public class Tracer : ITracer
         var method = new StackTrace().GetFrame(FRAME_INDEX).GetMethod();
         var methodTracer = new TraceMethod(method.ReflectedType.Name, method.Name);
         var threadTracer = GetThreadTracer(Thread.CurrentThread.ManagedThreadId);
-
         threadTracer.StartTrace(methodTracer);
     }
 
