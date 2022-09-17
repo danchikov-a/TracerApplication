@@ -1,19 +1,26 @@
-﻿namespace TracerApplication.model;
+﻿using System.Xml.Serialization;
+using Newtonsoft.Json;
+
+namespace TracerApplication.model;
 
 public class TraceThread
 {
+    [JsonProperty("id")]
+    [XmlAttribute("id")]
     public int Id
     {
         get; 
         set;
     }
-    
+    [JsonProperty("time")]
+    [XmlAttribute("time")]
     public double FinalExecutionTime
     {
         get; 
         set;
     }
-    
+    [JsonProperty("methods")]
+    [XmlElement("method")]
     public List<TraceMethod> TraceMethods
     {
         get;

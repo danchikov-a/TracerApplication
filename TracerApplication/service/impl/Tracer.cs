@@ -7,7 +7,7 @@ public class Tracer : ITracer
 {
     private const int FRAME_INDEX = 1;
     private static readonly object LockObject = new();
-
+    
     private readonly Dictionary<int, TraceThread> _traceThreads;
 
     public Tracer()

@@ -1,27 +1,37 @@
 ﻿using System.Diagnostics;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace TracerApplication.model;
 
 public class TraceMethod
 {
+    [JsonProperty("name")]
+    [XmlAttribute("name")]
     public string MethodName
     {
         get; 
         set;
     }
     
+    [JsonProperty("class")]
+    [XmlAttribute("class")]
     public string ClassName
     {
         get;
         set;
     }
     
+    [JsonProperty("time")]
+    [XmlAttribute("time")]
     public double ExecutionTime
     {
         get;
         set;
     }
     
+    [JsonProperty("methods")]
+    [XmlElement("method")]
     public List<TraceMethod> TraceMethods
     {
         get;
@@ -73,12 +83,4 @@ public class TraceMethod
         _stopwatch.Stop();
         ExecutionTime = _stopwatch.Elapsed.TotalMilliseconds;
     }
-
-    /*public override string ToString()
-    {
-        Console.WriteLine(String.Format("{0} {1} {2}", MethodName, ClassName, ExecutionTime));
-        Console.WriteLine(TraceMethods.Count == 0);
-        Console.WriteLine(String.Join(", ", TraceMethods));
-        return base.ToString();
-    }*/
 }

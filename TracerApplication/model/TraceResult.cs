@@ -1,9 +1,13 @@
-﻿using TracerApplication.service.impl;
+﻿using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace TracerApplication.model;
 
+[XmlType("root")]
 public class TraceResult
 {
+    [JsonProperty("threads")]
+    [XmlElement("thread")]
     public List<TraceThread> Threads
     {
         get;
