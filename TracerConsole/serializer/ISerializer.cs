@@ -1,6 +1,6 @@
 ﻿using TracerApplication.model;
 
-namespace TracerApplication.serializer;
+namespace TracerConsole.serializer;
 
 public interface ISerializer
 {
