@@ -4,5 +4,5 @@ namespace TracerConsole.serializer;
 
 public interface ISerializer
 {
-    public void Serialize(TraceResult traceResult);
+    public StringWriter Serialize(TraceResult traceResult);
 }

@@ -7,9 +7,7 @@ namespace TracerApplication.serializer.impl;
 
 public class ToXmlSerializer : ISerializer
 {
-    private const string XML_SAVE_PATH = "D:/123.xml";
-    
-    public void Serialize(TraceResult traceResult)
+    public StringWriter Serialize(TraceResult traceResult)
     {
         using (StringWriter stringWriter = new StringWriter())
         {
@@ -19,13 +17,15 @@ public class ToXmlSerializer : ISerializer
         
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(TraceResult));
                 xmlSerializer.Serialize(xmlTextWriter, traceResult);
-                Console.WriteLine(stringWriter.ToString());
+                /*Console.WriteLine(stringWriter.ToString());
                 
                 using (StreamWriter writer = new StreamWriter(XML_SAVE_PATH, false))
                 {
                     writer.WriteLine(stringWriter);
-                }
+                }*/
             }
+            
+            return stringWriter;
         }
     }
 }
