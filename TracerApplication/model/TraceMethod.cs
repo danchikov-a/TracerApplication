@@ -24,7 +24,7 @@ public class TraceMethod
     
     [JsonProperty("time")]
     [XmlAttribute("time")]
-    public double ExecutionTime
+    public int ExecutionTime
     {
         get;
         set;
@@ -52,7 +52,7 @@ public class TraceMethod
         _stopwatch = new Stopwatch();
     }
 
-    public TraceMethod(string className, string methodName, double executionTime)
+    public TraceMethod(string className, string methodName, int executionTime)
     {
         MethodName = methodName;
         ClassName = className;
@@ -63,7 +63,7 @@ public class TraceMethod
 
     internal TraceMethod GetTraceResult()
     {
-        var traceMethod = new TraceMethod(ClassName, MethodName, ExecutionTime);
+        var traceMethod = new TraceMethod(ClassName, MethodName,  ExecutionTime);
         
         foreach (var method in TraceMethods)
         {
@@ -81,6 +81,6 @@ public class TraceMethod
     public void StopTrace()
     {
         _stopwatch.Stop();
-        ExecutionTime = _stopwatch.Elapsed.TotalMilliseconds;
+        ExecutionTime = (int) _stopwatch.Elapsed.TotalMilliseconds;
     }
 }

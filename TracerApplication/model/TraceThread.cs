@@ -14,7 +14,7 @@ public class TraceThread
     }
     [JsonProperty("time")]
     [XmlAttribute("time")]
-    public double FinalExecutionTime
+    public int FinalExecutionTime
     {
         get; 
         set;
@@ -40,7 +40,7 @@ public class TraceThread
         StillWorkingMethods = new Stack<TraceMethod>();
     }
 
-    public TraceThread(int id, double finalExecutionTime)
+    public TraceThread(int id, int finalExecutionTime)
     {
         Id = id;
         FinalExecutionTime = finalExecutionTime;
